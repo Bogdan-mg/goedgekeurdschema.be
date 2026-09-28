@@ -20,7 +20,7 @@ import subprocess
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
-BASE_URL = "https://goedgekeurdschema.be/"
+BASE_URL = "https://www.goedgekeurdschema.be/"
 
 
 def load_config():

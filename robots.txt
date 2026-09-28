@@ -4,4 +4,4 @@ Disallow: /src/
 Disallow: /tools/
 Disallow: /.claude/
 
-Sitemap: https://goedgekeurdschema.be/sitemap.xml
+Sitemap: https://www.goedgekeurdschema.be/sitemap.xml
