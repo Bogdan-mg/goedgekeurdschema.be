@@ -137,6 +137,31 @@ def render_reviews(S):
             f'        <div class="reviews">{items}</div>\n      </div>\n    </section>\n')
 
 
+def render_fotos(S):
+    fotos = S.get("fotos") or []
+    if not fotos:
+        return ""
+    def fig(f):
+        srcset = f' srcset="{esc(f["klein"])} 600w, {esc(f["src"])} 1000w" sizes="(max-width: 860px) 92vw, 460px"' if f.get("klein") else ""
+        cap = f'<figcaption>{esc(f["tekst"])}</figcaption>' if f.get("tekst") else ""
+        return (f'<figure class="foto"><img src="{esc(f["src"])}"{srcset} alt="{esc(f["alt"])}" '
+                f'width="600" height="800" loading="lazy" decoding="async">{cap}</figure>')
+    veel = " fotos-veel" if len(fotos) > 1 else ""
+    return ('\n    <!-- UIT DE PRAKTIJK -->\n    <section id="praktijk" class="section alt">\n      <div class="wrap split">\n'
+            '        <div class="split-copy">\n'
+            '          <p class="kicker">Uit de praktijk</p>\n'
+            '          <h2>Elke kring krijgt een naam</h2>\n'
+            '          <p>Zo hoort een verdeelkast eruit te zien: elke automaat en differentieelschakelaar heeft een duidelijke letter. '
+            'Diezelfde letters vind je terug op het eendraadschema en het situatieschema. Zo weten jij, je elektricien en de keurder meteen welke kring waar zit.</p>\n'
+            '          <ul class="checks">\n'
+            '            <li>Kringen gelabeld in de verdeelkast</li>\n'
+            '            <li>Dezelfde letters op je schema\'s</li>\n'
+            '            <li>Ook grote kasten, kantoren en handelszaken</li>\n'
+            '          </ul>\n        </div>\n'
+            f'        <div class="fotos{veel}">{"".join(fig(f) for f in fotos)}</div>\n'
+            '      </div>\n    </section>\n')
+
+
 def render_over(S):
     o = S.get("over") or {}
     if not o.get("tekst"):
@@ -230,6 +255,7 @@ def build():
         "{{extras}}": render_extras(S),
         "{{extra_keuzes}}": render_extra_choices(S),
         "{{over}}": render_over(S),
+        "{{fotos}}": render_fotos(S),
         "{{levertijd}}": str(S["levertijdWerkdagen"]),
         "{{werkgebied}}": esc(S["werkgebied"]),
         "{{gemeenten}}": "".join(f"<li>{esc(g)}</li>" for g in S["gemeenten"]),

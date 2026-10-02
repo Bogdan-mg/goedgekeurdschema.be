@@ -401,6 +401,13 @@ legend { font-weight: 700; font-size: .95rem; margin-bottom: 8px; }
 .review figcaption b { color: var(--ink); }
 
 /* Over mij */
+/* Uit de praktijk */
+.section.alt + .section.alt { padding-top: 0; }
+.fotos { display: grid; gap: 16px; max-width: 460px; justify-self: center; width: 100%; }
+.fotos-veel { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+.foto { margin: 0; }
+.foto img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--r-card); border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--tint); }
+.foto figcaption { color: var(--muted); font-size: .9rem; margin-top: 10px; text-align: center; }
 .over { display: flex; gap: 40px; align-items: center; max-width: 900px; }
 .over-foto { width: 220px; height: 220px; object-fit: cover; border-radius: var(--r-card); flex: none; }
 .over p { color: var(--text); font-size: 1.08rem; max-width: 60ch; margin: 0; }

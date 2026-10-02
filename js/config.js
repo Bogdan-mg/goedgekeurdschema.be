@@ -69,6 +69,14 @@ window.SITE = {
   // Voorbeeld: { naam: "Voornaam N.", gemeente: "Berchem", tekst: "..." }
   reviews: [],
 
+  // Foto's van je werk (blok "Uit de praktijk" op de homepage; verschijnt enkel als er foto's zijn).
+  // src: grote versie, klein: kleinere versie voor gsm (mag weg). Staand formaat (3:4) werkt het best.
+  fotos: [
+    { src: "img/werk/verdeelkast-1-1000.webp", klein: "img/werk/verdeelkast-1-600.webp",
+      alt: "Grote verdeelkast met automaten en differentieelschakelaars, elke kring gelabeld met een letter",
+      tekst: "Elke kring een duidelijke letter, ook in grote kasten." },
+  ],
+
   // Over jou (het blok verschijnt pas als 'tekst' ingevuld is).
   // foto: bv. "img/over.jpg" (vierkant, minstens 600x600 px)
   over: { naam: "", tekst: "", foto: "" },

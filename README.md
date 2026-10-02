@@ -92,3 +92,9 @@ In `.claude/skills/` staan skills die Claude automatisch gebruikt bij werk aan d
 | `web-design-guidelines` | vercel-labs/agent-skills | UI-controle op toegankelijkheid en best practices |
 | `awesome-design-md` | VoltAgent/awesome-design-md (MIT) | 70+ design systems als inspiratie |
 | `playwright-cli` | microsoft/playwright-cli (Apache-2.0) | Site testen in een echte browser |
+
+## Foto's van je werk
+
+In `js/config.js` staat de lijst `fotos`. Elke foto verschijnt in het blok "Uit de praktijk" op de homepage.
+Zet de afbeelding in `img/werk/` (staand formaat 3:4, liefst WebP van ongeveer 1000 px breed) en voeg een regel toe met `src`, `alt` (korte beschrijving voor Google en schermlezers) en eventueel `tekst` (onderschrift).
+Let op: geen adressen, namen of gezichten van klanten op de foto zonder hun toestemming.
