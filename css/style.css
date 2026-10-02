@@ -401,6 +401,10 @@ legend { font-weight: 700; font-size: .95rem; margin-bottom: 8px; }
 .review figcaption b { color: var(--ink); }
 
 /* Over mij */
+/* Voor professionals */
+.pro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
+.pro-grid .tile p { margin: 0; }
+
 /* Uit de praktijk */
 .section.alt + .section.alt { padding-top: 0; }
 .fotos { display: grid; gap: 16px; max-width: 460px; justify-self: center; width: 100%; }
