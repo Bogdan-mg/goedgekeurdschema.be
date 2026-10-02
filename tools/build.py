@@ -208,6 +208,8 @@ def business(S):
         b["telephone"] = intl(S["telefoon"])
     elif S.get("whatsapp") and S["whatsapp"] != "32470000000":
         b["telephone"] = "+" + S["whatsapp"]
+    if S.get("googleReview"):
+        b["sameAs"] = [re.sub(r"/review/?$", "", S["googleReview"])]
     if S.get("ondernemingsnummer"):
         b["vatID"] = S["ondernemingsnummer"]
     a = S.get("adres") or {}
@@ -271,6 +273,8 @@ def build():
         contact.append(f'<a href="tel:{intl(S["telefoon"])}">{esc(S["telefoon"])}</a>')
     if S.get("email"):
         contact.append(f'<a href="mailto:{esc(S["email"])}">{esc(S["email"])}</a>')
+    if S.get("googleReview"):
+        contact.append(f'<a href="{esc(S["googleReview"])}" target="_blank" rel="noopener">Laat een review achter op Google</a>')
     contact.append(f'Werkgebied: {esc(S["werkgebied"])}')
     legal = [esc(S.get("bedrijfsnaam") or S["naam"])]
     a = S.get("adres") or {}

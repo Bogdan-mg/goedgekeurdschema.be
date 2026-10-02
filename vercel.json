@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/review", "destination": "https://g.page/r/CXQrOEXrI0F9EBM/review", "permanent": false },
+    { "source": "/reviews", "destination": "https://g.page/r/CXQrOEXrI0F9EBM/review", "permanent": false }
+  ]
+}
