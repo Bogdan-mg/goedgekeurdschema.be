@@ -121,6 +121,22 @@ def render_werkgebied(S):
 
 GEMEENTEN = []
 
+ARTIKELS = [
+    ("wat-kost-een-eendraadschema.html", "Wat kost een eendraadschema?"),
+    ("verschil-eendraadschema-situatieschema.html", "Eendraadschema of situatieschema: het verschil"),
+    ("wat-staat-er-op-een-eendraadschema.html", "Wat staat er op een eendraadschema?"),
+    ("elektrische-keuring-voorbereiden.html", "Elektrische keuring voorbereiden: checklist"),
+    ("hoe-lang-is-een-elektrische-keuring-geldig.html", "Hoe lang is een elektrische keuring geldig?"),
+]
+
+
+def render_advies_aside():
+    links = "".join(f'<a href="{a}">{esc(t)}</a>' for a, t in ARTIKELS)
+    return ('<aside class="side"><div class="side-box"><b>Schema nodig?</b>'
+            '<p>Vaste prijs vanaf {{prijs_vanaf}}, verplaatsing inbegrepen. Binnen {{levertijd}} werkdagen klaar.</p>'
+            '<a class="btn btn-wa" data-wa="Hallo! Ik heb een vraag over een elektrisch schema." href="#"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>Stel je vraag</a></div>'
+            f'<nav class="side-links" aria-label="Meer advies"><b>Meer advies</b>{links}<a href="advies.html">Alle artikels</a></nav></aside>')
+
 
 def render_cards(S):
     out = []
@@ -334,6 +350,7 @@ def build():
         "{{extra_keuzes}}": render_extra_choices(S),
         "{{over}}": render_over(S),
         "{{fotos}}": render_fotos(S),
+        "{{advies_aside}}": render_advies_aside(),
         "{{levertijd}}": str(S["levertijdWerkdagen"]),
         "{{werkgebied}}": esc(S["werkgebied"]),
         "{{gemeenten}}": render_werkgebied(S),
@@ -389,6 +406,18 @@ def build():
                     {"@type": "ListItem", "position": 1, "name": "Home", "item": BASE_URL},
                     {"@type": "ListItem", "position": 2, "name": meta["crumb"], "item": url},
                 ],
+            })
+        if meta.get("artikel"):
+            graph.append({
+                "@type": "Article",
+                "headline": meta["crumb"],
+                "description": meta["description"],
+                "datePublished": meta["artikel"],
+                "dateModified": meta["artikel"],
+                "inLanguage": "nl-BE",
+                "author": {"@id": BASE_URL + "#bedrijf"},
+                "publisher": {"@id": BASE_URL + "#bedrijf"},
+                "mainEntityOfPage": url,
             })
         if meta.get("service"):
             graph.append({
