@@ -49,6 +49,79 @@ def page_url(path):
     return BASE_URL if path == "index.html" else BASE_URL + path
 
 
+BERCHEM = (51.195, 4.430)        # middelpunt van het werkgebied
+ANTWERPEN = (51.2194, 4.4025)    # Antwerpen-centrum
+STRAAL_KM = 30
+
+
+def km(a, b):
+    import math
+    dlat = (a[0] - b[0]) * 111.2
+    dlon = (a[1] - b[1]) * 111.2 * math.cos(math.radians((a[0] + b[0]) / 2))
+    return math.hypot(dlat, dlon)
+
+
+def slug(naam):
+    import unicodedata
+    s = unicodedata.normalize("NFKD", naam).encode("ascii", "ignore").decode().lower()
+    return re.sub(r"[^a-z0-9]+", "-", s.replace("'", "")).strip("-")
+
+
+def load_gemeenten():
+    """Gemeenten uit tools/gemeenten.json binnen STRAAL_KM van Berchem, met slug en afstand."""
+    f = ROOT / "tools" / "gemeenten.json"
+    if not f.exists():
+        return []
+    gs = [g for g in json.loads(f.read_text(encoding="utf-8")) if km((g["lat"], g["lon"]), BERCHEM) <= STRAAL_KM]
+    for g in gs:
+        g["slug"] = slug(g["naam"])
+        g["km"] = km((g["lat"], g["lon"]), ANTWERPEN)
+    return gs
+
+
+def lijst(items):
+    items = list(items)
+    return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " en " + items[-1]
+
+
+WONINGEN = {
+    "district": "In {n} wonen veel mensen in appartementen en rijwoningen. In oudere panden zijn de schema's vaak verdwenen, of kloppen ze niet meer na een verbouwing.",
+    "stad": "In {n} vind je oude stadswoningen naast appartementen en nieuwbouw. Vooral bij oudere panden en na renovaties ontbreken de schema's vaak, of kloppen ze niet meer.",
+    "rand": "{n} heeft veel rijwoningen, halfopen bebouwing en appartementen. Is er ooit verbouwd of een kring bijgekomen, dan klopt het oude schema meestal niet meer.",
+    "landelijk": "In {n} staan veel vrijstaande woningen, vaak met een garage, tuinhuis of bijgebouw. Ook die kringen moeten op het schema staan, en dat wordt vaak vergeten.",
+}
+
+
+def gemeente_intro(g):
+    if g.get("intro"):
+        return g["intro"]
+    t1 = WONINGEN[g["type"]].format(n=g["naam"])
+    waar = f"We komen in heel {g['naam']}" + (f", ook in {lijst(g['deel'])}" if g["deel"] else "") + "."
+    afstand = round(g["km"] / 5) * 5
+    if g["naam"] == "Antwerpen" or afstand < 5:
+        ligging = "De verplaatsing zit altijd in de prijs."
+    else:
+        ligging = f"{g['naam']} ligt op zo'n {afstand} km van Antwerpen-centrum, en de verplaatsing zit gewoon in de prijs."
+    return [t1, f"{waar} {ligging} Je krijgt je eendraad- en situatieschema digitaal, klaar voor de keurder."]
+
+
+def render_werkgebied(S):
+    if not GEMEENTEN:
+        return '<ul class="regions">' + "".join(f"<li>{esc(g)}</li>" for g in S["gemeenten"]) + "</ul>"
+    regios = {}
+    for g in GEMEENTEN:
+        regios.setdefault(g["regio"], []).append(g)
+    return "".join(
+        f'<div class="regio"><h3>{esc(r)}</h3><ul class="regions">'
+        + "".join(f'<li><a href="eendraadschema-{g["slug"]}.html">{esc(g["naam"])}</a></li>' for g in gs)
+        + "</ul></div>"
+        for r, gs in regios.items()
+    )
+
+
+GEMEENTEN = []
+
+
 def render_cards(S):
     out = []
     for p in S["pakketten"]:
@@ -244,7 +317,11 @@ NAV = [
 
 
 def build():
+    global GEMEENTEN
     S = load_config()
+    GEMEENTEN = load_gemeenten()
+    if GEMEENTEN:
+        S["gemeenten"] = [g["naam"] for g in GEMEENTEN]
     layout = (SRC / "layout.html").read_text(encoding="utf-8")
     today = datetime.date.today().isoformat()
     minprijs = min(p["prijs"] for p in S["pakketten"])
@@ -259,7 +336,7 @@ def build():
         "{{fotos}}": render_fotos(S),
         "{{levertijd}}": str(S["levertijdWerkdagen"]),
         "{{werkgebied}}": esc(S["werkgebied"]),
-        "{{gemeenten}}": "".join(f"<li>{esc(g)}</li>" for g in S["gemeenten"]),
+        "{{gemeenten}}": render_werkgebied(S),
         "{{prijs_vanaf}}": euro(minprijs),
         "{{opAanvraag}}": esc(S["opAanvraag"]),
         "{{email_link}}": f'<a href="mailto:{esc(S["email"])}">{esc(S["email"])}</a>' if S.get("email") else "e-mail",
@@ -282,19 +359,14 @@ def build():
     if S.get("ondernemingsnummer"):
         legal.append("Ondernemingsnummer " + esc(S["ondernemingsnummer"]))
 
-    # Bronpagina's: de vaste pagina's plus één pagina per gemeente uit config.js
+    # Bronpagina's: de vaste pagina's plus één pagina per gemeente (tools/gemeenten.json)
     bronnen = [(f.name, f.read_text(encoding="utf-8")) for f in sorted((SRC / "pages").glob("*.html"))]
-    gp = S.get("gemeentePaginas") or []
-    slugs = {g["naam"]: g["slug"] for g in gp}
-    tpl = (SRC / "gemeente.html").read_text(encoding="utf-8") if gp else ""
-    for g in gp:
-        buren = ", ".join(
-            f'<a href="eendraadschema-{slugs[b]}.html">{esc(b)}</a>' if b in slugs else esc(b)
-            for b in g.get("buren", [])
-        )
+    tpl = (SRC / "gemeente.html").read_text(encoding="utf-8")
+    for g in GEMEENTEN:
+        buren = sorted((b for b in GEMEENTEN if b is not g), key=lambda b: km((b["lat"], b["lon"]), (g["lat"], g["lon"])))[:4]
         raw = (tpl.replace("{{g_naam}}", esc(g["naam"])).replace("{{g_postcode}}", esc(g["postcode"]))
-                  .replace("{{g_intro}}", "".join(f"<p>{esc(t)}</p>" for t in g["intro"]))
-                  .replace("{{g_buren}}", buren))
+                  .replace("{{g_intro}}", "".join(f"<p>{esc(t)}</p>" for t in gemeente_intro(g)))
+                  .replace("{{g_buren}}", lijst(f'<a href="eendraadschema-{b["slug"]}.html">{esc(b["naam"])}</a>' for b in buren)))
         bronnen.append((f'eendraadschema-{g["slug"]}.html', raw))
 
     sitemap = []

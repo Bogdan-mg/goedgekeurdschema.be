@@ -1,0 +1,609 @@
+[
+ {
+  "naam": "Antwerpen",
+  "postcode": "2000",
+  "lat": 51.2194,
+  "lon": 4.4025,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": [],
+  "intro": [
+   "Van het centrum en het Zuid tot het Eilandje en Linkeroever: in Antwerpen staan veel appartementen en oude herenhuizen. Bij verbouwingen worden kringen vaak aangepast zonder dat de schema's mee veranderen. Bij de keuring komt dat meteen naar boven."
+  ]
+ },
+ {
+  "naam": "Berchem",
+  "postcode": "2600",
+  "lat": 51.195,
+  "lon": 4.43,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": [],
+  "intro": [
+   "Berchem heeft veel oudere herenhuizen, zoals in Zurenborg, en veel appartementen. Bij oudere woningen ontbreken de schema's vaak, of kloppen ze niet meer na een renovatie. Bij de verkoop of verhuur van je woning in Berchem merkt de keurder dat meteen.",
+   "Wij brengen je installatie volledig in kaart: van de verdeelkast tot elk stopcontact en lichtpunt. Zo heb je bij de keuring alles in orde, en weet je elektricien meteen welke kring waar zit."
+  ]
+ },
+ {
+  "naam": "Borgerhout",
+  "postcode": "2140",
+  "lat": 51.211,
+  "lon": 4.441,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": []
+ },
+ {
+  "naam": "Deurne",
+  "postcode": "2100",
+  "lat": 51.218,
+  "lon": 4.467,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": []
+ },
+ {
+  "naam": "Ekeren",
+  "postcode": "2180",
+  "lat": 51.281,
+  "lon": 4.418,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": []
+ },
+ {
+  "naam": "Hoboken",
+  "postcode": "2660",
+  "lat": 51.172,
+  "lon": 4.35,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": []
+ },
+ {
+  "naam": "Merksem",
+  "postcode": "2170",
+  "lat": 51.246,
+  "lon": 4.444,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": []
+ },
+ {
+  "naam": "Wilrijk",
+  "postcode": "2610",
+  "lat": 51.168,
+  "lon": 4.393,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": []
+ },
+ {
+  "naam": "Borsbeek",
+  "postcode": "2150",
+  "lat": 51.193,
+  "lon": 4.488,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": []
+ },
+ {
+  "naam": "Berendrecht-Zandvliet-Lillo",
+  "postcode": "2040",
+  "lat": 51.34,
+  "lon": 4.32,
+  "type": "district",
+  "regio": "Antwerpen en districten",
+  "deel": [
+   "Berendrecht",
+   "Zandvliet",
+   "Lillo"
+  ]
+ },
+ {
+  "naam": "Aartselaar",
+  "postcode": "2630",
+  "lat": 51.134,
+  "lon": 4.384,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Boechout",
+  "postcode": "2530",
+  "lat": 51.16,
+  "lon": 4.497,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": [
+   "Vremde"
+  ]
+ },
+ {
+  "naam": "Boom",
+  "postcode": "2850",
+  "lat": 51.09,
+  "lon": 4.367,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Brasschaat",
+  "postcode": "2930",
+  "lat": 51.291,
+  "lon": 4.492,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": [
+   "Maria-ter-Heide"
+  ]
+ },
+ {
+  "naam": "Edegem",
+  "postcode": "2650",
+  "lat": 51.155,
+  "lon": 4.445,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Hemiksem",
+  "postcode": "2620",
+  "lat": 51.134,
+  "lon": 4.339,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Hove",
+  "postcode": "2540",
+  "lat": 51.153,
+  "lon": 4.468,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Kapellen",
+  "postcode": "2950",
+  "lat": 51.313,
+  "lon": 4.432,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Kontich",
+  "postcode": "2550",
+  "lat": 51.134,
+  "lon": 4.446,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": [
+   "Waarloos"
+  ]
+ },
+ {
+  "naam": "Lint",
+  "postcode": "2547",
+  "lat": 51.127,
+  "lon": 4.497,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Mortsel",
+  "postcode": "2640",
+  "lat": 51.17,
+  "lon": 4.457,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Niel",
+  "postcode": "2845",
+  "lat": 51.11,
+  "lon": 4.333,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Ranst",
+  "postcode": "2520",
+  "lat": 51.19,
+  "lon": 4.56,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": [
+   "Broechem",
+   "Emblem",
+   "Oelegem"
+  ]
+ },
+ {
+  "naam": "Rumst",
+  "postcode": "2840",
+  "lat": 51.081,
+  "lon": 4.422,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": [
+   "Reet",
+   "Terhagen"
+  ]
+ },
+ {
+  "naam": "Schelle",
+  "postcode": "2627",
+  "lat": 51.124,
+  "lon": 4.339,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Schilde",
+  "postcode": "2970",
+  "lat": 51.24,
+  "lon": 4.585,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": [
+   "'s-Gravenwezel"
+  ]
+ },
+ {
+  "naam": "Schoten",
+  "postcode": "2900",
+  "lat": 51.252,
+  "lon": 4.502,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Stabroek",
+  "postcode": "2940",
+  "lat": 51.33,
+  "lon": 4.37,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": [
+   "Hoevenen"
+  ]
+ },
+ {
+  "naam": "Wijnegem",
+  "postcode": "2110",
+  "lat": 51.228,
+  "lon": 4.519,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Wommelgem",
+  "postcode": "2160",
+  "lat": 51.205,
+  "lon": 4.522,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": []
+ },
+ {
+  "naam": "Zwijndrecht",
+  "postcode": "2070",
+  "lat": 51.218,
+  "lon": 4.329,
+  "type": "rand",
+  "regio": "Rond Antwerpen",
+  "deel": [
+   "Burcht"
+  ]
+ },
+ {
+  "naam": "Brecht",
+  "postcode": "2960",
+  "lat": 51.35,
+  "lon": 4.638,
+  "type": "landelijk",
+  "regio": "Noorderkempen",
+  "deel": [
+   "Sint-Job-in-'t-Goor",
+   "Sint-Lenaarts"
+  ]
+ },
+ {
+  "naam": "Kalmthout",
+  "postcode": "2920",
+  "lat": 51.384,
+  "lon": 4.475,
+  "type": "landelijk",
+  "regio": "Noorderkempen",
+  "deel": [
+   "Achterbroek",
+   "Nieuwmoer"
+  ]
+ },
+ {
+  "naam": "Wuustwezel",
+  "postcode": "2990",
+  "lat": 51.39,
+  "lon": 4.595,
+  "type": "landelijk",
+  "regio": "Noorderkempen",
+  "deel": [
+   "Loenhout",
+   "Gooreind"
+  ]
+ },
+ {
+  "naam": "Malle",
+  "postcode": "2390",
+  "lat": 51.3,
+  "lon": 4.69,
+  "type": "landelijk",
+  "regio": "Noorderkempen",
+  "deel": [
+   "Oostmalle",
+   "Westmalle"
+  ]
+ },
+ {
+  "naam": "Zoersel",
+  "postcode": "2980",
+  "lat": 51.27,
+  "lon": 4.71,
+  "type": "landelijk",
+  "regio": "Noorderkempen",
+  "deel": [
+   "Halle",
+   "Sint-Antonius"
+  ]
+ },
+ {
+  "naam": "Zandhoven",
+  "postcode": "2240",
+  "lat": 51.214,
+  "lon": 4.66,
+  "type": "landelijk",
+  "regio": "Noorderkempen",
+  "deel": [
+   "Massenhoven",
+   "Pulderbos",
+   "Pulle",
+   "Viersel"
+  ]
+ },
+ {
+  "naam": "Rijkevorsel",
+  "postcode": "2310",
+  "lat": 51.35,
+  "lon": 4.76,
+  "type": "landelijk",
+  "regio": "Noorderkempen",
+  "deel": []
+ },
+ {
+  "naam": "Mechelen",
+  "postcode": "2800",
+  "lat": 51.028,
+  "lon": 4.478,
+  "type": "stad",
+  "regio": "Mechelen en Rupelstreek",
+  "deel": [
+   "Walem",
+   "Heffen",
+   "Leest",
+   "Hombeek",
+   "Muizen"
+  ]
+ },
+ {
+  "naam": "Bonheiden",
+  "postcode": "2820",
+  "lat": 51.027,
+  "lon": 4.54,
+  "type": "rand",
+  "regio": "Mechelen en Rupelstreek",
+  "deel": [
+   "Rijmenam"
+  ]
+ },
+ {
+  "naam": "Duffel",
+  "postcode": "2570",
+  "lat": 51.09,
+  "lon": 4.51,
+  "type": "rand",
+  "regio": "Mechelen en Rupelstreek",
+  "deel": []
+ },
+ {
+  "naam": "Sint-Katelijne-Waver",
+  "postcode": "2860",
+  "lat": 51.067,
+  "lon": 4.533,
+  "type": "rand",
+  "regio": "Mechelen en Rupelstreek",
+  "deel": [
+   "Onze-Lieve-Vrouw-Waver"
+  ]
+ },
+ {
+  "naam": "Willebroek",
+  "postcode": "2830",
+  "lat": 51.06,
+  "lon": 4.36,
+  "type": "rand",
+  "regio": "Mechelen en Rupelstreek",
+  "deel": [
+   "Blaasveld",
+   "Heindonk",
+   "Tisselt"
+  ]
+ },
+ {
+  "naam": "Puurs-Sint-Amands",
+  "postcode": "2870",
+  "lat": 51.075,
+  "lon": 4.29,
+  "type": "landelijk",
+  "regio": "Mechelen en Rupelstreek",
+  "deel": [
+   "Puurs",
+   "Breendonk",
+   "Liezele",
+   "Ruisbroek",
+   "Sint-Amands",
+   "Lippelo",
+   "Oppuurs"
+  ]
+ },
+ {
+  "naam": "Bornem",
+  "postcode": "2880",
+  "lat": 51.1,
+  "lon": 4.24,
+  "type": "landelijk",
+  "regio": "Mechelen en Rupelstreek",
+  "deel": [
+   "Hingene",
+   "Mariekerke",
+   "Weert"
+  ]
+ },
+ {
+  "naam": "Putte",
+  "postcode": "2580",
+  "lat": 51.056,
+  "lon": 4.63,
+  "type": "landelijk",
+  "regio": "Mechelen en Rupelstreek",
+  "deel": [
+   "Beerzel"
+  ]
+ },
+ {
+  "naam": "Lier",
+  "postcode": "2500",
+  "lat": 51.131,
+  "lon": 4.57,
+  "type": "stad",
+  "regio": "Lier en Kempen",
+  "deel": [
+   "Koningshooikt"
+  ]
+ },
+ {
+  "naam": "Nijlen",
+  "postcode": "2560",
+  "lat": 51.16,
+  "lon": 4.67,
+  "type": "landelijk",
+  "regio": "Lier en Kempen",
+  "deel": [
+   "Bevel",
+   "Kessel"
+  ]
+ },
+ {
+  "naam": "Berlaar",
+  "postcode": "2590",
+  "lat": 51.117,
+  "lon": 4.658,
+  "type": "landelijk",
+  "regio": "Lier en Kempen",
+  "deel": [
+   "Gestel"
+  ]
+ },
+ {
+  "naam": "Heist-op-den-Berg",
+  "postcode": "2220",
+  "lat": 51.075,
+  "lon": 4.72,
+  "type": "landelijk",
+  "regio": "Lier en Kempen",
+  "deel": [
+   "Booischot",
+   "Hallaar",
+   "Itegem",
+   "Wiekevorst",
+   "Schriek"
+  ]
+ },
+ {
+  "naam": "Herenthout",
+  "postcode": "2270",
+  "lat": 51.14,
+  "lon": 4.755,
+  "type": "landelijk",
+  "regio": "Lier en Kempen",
+  "deel": []
+ },
+ {
+  "naam": "Grobbendonk",
+  "postcode": "2280",
+  "lat": 51.19,
+  "lon": 4.735,
+  "type": "landelijk",
+  "regio": "Lier en Kempen",
+  "deel": [
+   "Bouwel"
+  ]
+ },
+ {
+  "naam": "Vorselaar",
+  "postcode": "2290",
+  "lat": 51.2,
+  "lon": 4.77,
+  "type": "landelijk",
+  "regio": "Lier en Kempen",
+  "deel": []
+ },
+ {
+  "naam": "Herentals",
+  "postcode": "2200",
+  "lat": 51.177,
+  "lon": 4.836,
+  "type": "stad",
+  "regio": "Lier en Kempen",
+  "deel": [
+   "Morkhoven",
+   "Noorderwijk"
+  ]
+ },
+ {
+  "naam": "Lille",
+  "postcode": "2275",
+  "lat": 51.24,
+  "lon": 4.825,
+  "type": "landelijk",
+  "regio": "Lier en Kempen",
+  "deel": [
+   "Gierle",
+   "Poederlee",
+   "Wechelderzande"
+  ]
+ },
+ {
+  "naam": "Hulshout",
+  "postcode": "2235",
+  "lat": 51.075,
+  "lon": 4.79,
+  "type": "landelijk",
+  "regio": "Lier en Kempen",
+  "deel": [
+   "Houtvenne",
+   "Westmeerbeek"
+  ]
+ }
+]

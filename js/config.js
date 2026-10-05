@@ -32,22 +32,13 @@ window.SITE = {
   // Levertijd en werkgebied
   levertijdWerkdagen: 10,
   werkgebied: "Antwerpen en omgeving",
-  // Gemeenten die op de site vermeld worden (ook voor Google)
+  // Gemeenten die op de site vermeld worden (ook voor Google).
+  // Let op: tools/gemeenten.json heeft voorrang. Daar staan alle gemeenten binnen 30 km van Berchem,
+  // en per gemeente maakt de site automatisch een pagina (eendraadschema-<gemeente>.html).
   gemeenten: [
     "Antwerpen", "Berchem", "Borgerhout", "Deurne", "Ekeren", "Hoboken", "Merksem", "Wilrijk",
     "Mortsel", "Edegem", "Kontich", "Aartselaar", "Hove", "Boechout", "Wommelgem", "Wijnegem",
     "Schoten", "Brasschaat", "Kapellen", "Stabroek", "Zwijndrecht", "Hemiksem", "Schelle", "Ranst",
-  ],
-
-  // Aparte pagina per gemeente (eendraadschema-<slug>.html), goed voor lokaal zoeken in Google.
-  // Schrijf per gemeente een eigen intro: Google negeert pagina's die bijna identiek zijn.
-  gemeentePaginas: [
-    { slug: "berchem", naam: "Berchem", postcode: "2600",
-      buren: ["Antwerpen", "Borgerhout", "Mortsel", "Wilrijk"],
-      intro: [
-        "Berchem heeft veel oudere herenhuizen, zoals in Zurenborg, en veel appartementen. Bij oudere woningen ontbreken de schema's vaak, of kloppen ze niet meer na een renovatie. Bij de verkoop of verhuur van je woning in Berchem merkt de keurder dat meteen.",
-        "Wij brengen je installatie volledig in kaart: van de verdeelkast tot elk stopcontact en lichtpunt. Zo heb je bij de keuring alles in orde, en weet je elektricien meteen welke kring waar zit.",
-      ] },
   ],
 
   // Pakketten: eendraadschema + situatieschema. Prijzen in euro, incl. btw en verplaatsing.
