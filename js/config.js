@@ -39,6 +39,17 @@ window.SITE = {
     "Schoten", "Brasschaat", "Kapellen", "Stabroek", "Zwijndrecht", "Hemiksem", "Schelle", "Ranst",
   ],
 
+  // Aparte pagina per gemeente (eendraadschema-<slug>.html), goed voor lokaal zoeken in Google.
+  // Schrijf per gemeente een eigen intro: Google negeert pagina's die bijna identiek zijn.
+  gemeentePaginas: [
+    { slug: "berchem", naam: "Berchem", postcode: "2600",
+      buren: ["Antwerpen", "Borgerhout", "Mortsel", "Wilrijk"],
+      intro: [
+        "Berchem heeft veel oudere herenhuizen, zoals in Zurenborg, en veel appartementen. Bij oudere woningen ontbreken de schema's vaak, of kloppen ze niet meer na een renovatie. Bij de verkoop of verhuur van je woning in Berchem merkt de keurder dat meteen.",
+        "Wij brengen je installatie volledig in kaart: van de verdeelkast tot elk stopcontact en lichtpunt. Zo heb je bij de keuring alles in orde, en weet je elektricien meteen welke kring waar zit.",
+      ] },
+  ],
+
   // Pakketten: eendraadschema + situatieschema. Prijzen in euro, incl. btw en verplaatsing.
   pakketten: [
     { id: "app",   naam: "Appartement",            m2: 110, zekeringen: 12, prijs: 265 },

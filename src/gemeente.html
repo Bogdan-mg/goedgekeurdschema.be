@@ -1,0 +1,71 @@
+<!--
+{"title": "Eendraadschema {{g_naam}} ({{g_postcode}}) aan vaste prijs | Goedgekeurd Schema",
+ "description": "Eendraadschema en situatieschema laten opmaken in {{g_naam}}? Vaste prijs vanaf {{prijs_vanaf}} incl. btw en verplaatsing, volgens het AREI. Binnen {{levertijd}} werkdagen klaar.",
+ "crumb": "Eendraadschema {{g_naam}}", "service": "Eendraadschema en situatieschema in {{g_naam}}", "plaats": "{{g_naam}}", "priority": 0.7}
+-->
+    <section class="page-hero">
+      <div class="wrap page-hero-in">
+        <div>
+          <h1>Eendraadschema laten opmaken in <span class="hl">{{g_naam}}</span></h1>
+          <p class="lead">Wij komen langs in {{g_naam}}, meten je installatie op en mailen je eendraad- en situatieschema binnen {{levertijd}} werkdagen. Aan een vaste prijs.</p>
+          <div class="hero-cta">
+            <a class="btn btn-teal btn-lg" href="./#boeken"><svg class="ico" aria-hidden="true"><use href="#i-cal"/></svg>Afspraak maken</a>
+            <a class="btn btn-ghost btn-lg" data-wa="Hallo! Ik woon in {{g_naam}} en heb een eendraadschema nodig." href="#"><svg class="ico ico-wa" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+          </div>
+        </div>
+        <aside class="price-box">
+          <small>In {{g_naam}} ({{g_postcode}})</small>
+          <p>vanaf <b>{{prijs_vanaf}}</b></p>
+          <ul class="checks">
+            <li>Eendraad- + situatieschema</li>
+            <li>Verplaatsing naar {{g_naam}} inbegrepen</li>
+            <li>Binnen {{levertijd}} werkdagen klaar</li>
+            <li>Pas betalen als alles klaar is</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap article">
+        <div class="prose">
+          <h2>Elektrische schema's in {{g_naam}}</h2>
+          {{g_intro}}
+          <h2>Wat krijg je?</h2>
+          <ul class="checks">
+            <li>Een <a href="eendraadschema.html">eendraadschema</a> van je verdeelkast volgens het AREI</li>
+            <li>Een <a href="situatieschema.html">situatieschema</a> van alle verdiepingen</li>
+            <li>Duidelijk gelabelde kringen in je verdeelkast</li>
+            <li>Alles digitaal (PDF) in je mailbox, klaar voor de keurder</li>
+          </ul>
+          <p>Ook in de buurt: {{g_buren}}. Bekijk ons volledige <a href="./#werkgebied">werkgebied</a>.</p>
+        </div>
+        <aside class="side">
+          <div class="side-box">
+            <b>Keuring afgekeurd?</b>
+            <p>Stuur een foto van je keuringsverslag. Je krijgt een vrijblijvende prijs en advies.</p>
+            <a class="btn btn-wa" data-wa="Hallo! Mijn keuring in {{g_naam}} is afgekeurd. Ik stuur een foto van het verslag." href="#"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>Verslag doorsturen</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="prijzen" class="section alt">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2>Wat kost een eendraadschema in {{g_naam}}?</h2>
+          <p>Eendraad- en situatieschema samen, inclusief btw en verplaatsing.</p>
+        </div>
+        {{cards}}
+        <p class="onreq center">{{opAanvraag}}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap narrow">
+        <h2 class="center">Veelgestelde vragen in {{g_naam}}</h2>
+        <details class="faq-q"><summary>Hoeveel kost een eendraadschema in {{g_naam}}?</summary><p>Een eendraad- en situatieschema samen kost bij ons vanaf {{prijs_vanaf}} voor een appartement, inclusief btw en verplaatsing naar {{g_naam}}. De prijs hangt af van de oppervlakte en het aantal zekeringen.</p></details>
+        <details class="faq-q"><summary>Hoe snel kunnen jullie in {{g_naam}} langskomen?</summary><p>Meestal kunnen we op korte termijn een afspraak inplannen, ook 's avonds of op zaterdag. Stuur ons een berichtje, dan stellen we meteen een moment voor.</p></details>
+        <details class="faq-q"><summary>Moet ik thuis zijn tijdens de opmeting?</summary><p>Iemand moet ons binnenlaten, maar dat mag ook je makelaar, een familielid of een buur zijn. We hebben toegang nodig tot de verdeelkast en alle ruimtes.</p></details>
+      </div>
+    </section>

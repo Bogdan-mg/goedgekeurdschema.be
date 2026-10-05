@@ -140,12 +140,22 @@ p { text-wrap: pretty; }
 
 /* Hero */
 .hero { padding: 56px 0 64px; }
-.hero-in { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); gap: 48px; align-items: center; }
+.hero-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: center; }
 .eyebrow { display: inline-flex; align-items: center; gap: .4em; font-weight: 700; font-size: .88rem; color: var(--text); background: var(--tint); padding: .35em .9em; border-radius: 999px; margin: 0 0 1.1rem; }
 .hl { background: linear-gradient(transparent 62%, var(--hl) 62%, var(--hl) 92%, transparent 92%); padding: 0 .04em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-.hero h1 { font-size: clamp(2.2rem, 4vw, 3.15rem); }
+.hero h1 { font-size: clamp(2.2rem, 3.6vw, 2.9rem); }
 .lead { font-size: 1.16rem; color: var(--text); max-width: 34em; margin: 0; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.8rem; }
+
+/* Echte foto achter de prijswidget */
+.hero-visual { position: relative; padding: 0 0 0 0; min-height: 560px; display: flex; align-items: flex-end; }
+.hero-foto { position: absolute; top: 0; right: 0; width: 56%; height: 88%; object-fit: cover; object-position: 50% 58%; border-radius: var(--r-card); box-shadow: var(--shadow); }
+.hero-visual .quote { position: relative; width: 76%; padding: 20px; }
+.hero-visual .quote-opts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.hero-visual .qopt span { flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px 12px; height: 100%; }
+.hero-visual .qopt small { text-align: left; font-size: .8rem; }
+.hero-visual .qopt b, .hero-visual .qopt strong { font-size: .95rem; }
+.hero-visual .quote-total { margin: 14px 0 12px; }
 
 /* Prijswidget */
 .quote { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 26px; box-shadow: var(--shadow); }
@@ -467,6 +477,9 @@ legend { font-weight: 700; font-size: .95rem; margin-bottom: 8px; }
   .over { flex-direction: column; align-items: flex-start; gap: 20px; }
   .hero { padding: 36px 0 48px; }
   .hero-in, .split, .page-hero-in { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .hero-visual { min-height: 0; display: block; }
+  .hero-foto { display: none; }
+  .hero-visual .quote { width: auto; }
   .trust-in { grid-template-columns: repeat(2, 1fr); }
   .section { padding: 64px 0; }
   .bento { grid-template-columns: minmax(0, 1fr); }

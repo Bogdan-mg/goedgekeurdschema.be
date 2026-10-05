@@ -149,7 +149,6 @@ def render_fotos(S):
     veel = " fotos-veel" if len(fotos) > 1 else ""
     return ('\n    <!-- UIT DE PRAKTIJK -->\n    <section id="praktijk" class="section alt">\n      <div class="wrap split">\n'
             '        <div class="split-copy">\n'
-            '          <p class="kicker">Uit de praktijk</p>\n'
             '          <h2>Elke kring krijgt een naam</h2>\n'
             '          <p>Zo hoort een verdeelkast eruit te zien: elke automaat en differentieelschakelaar heeft een duidelijke letter. '
             'Diezelfde letters vind je terug op het eendraadschema en het situatieschema. Zo weten jij, je elektricien en de keurder meteen welke kring waar zit.</p>\n'
@@ -283,9 +282,23 @@ def build():
     if S.get("ondernemingsnummer"):
         legal.append("Ondernemingsnummer " + esc(S["ondernemingsnummer"]))
 
+    # Bronpagina's: de vaste pagina's plus één pagina per gemeente uit config.js
+    bronnen = [(f.name, f.read_text(encoding="utf-8")) for f in sorted((SRC / "pages").glob("*.html"))]
+    gp = S.get("gemeentePaginas") or []
+    slugs = {g["naam"]: g["slug"] for g in gp}
+    tpl = (SRC / "gemeente.html").read_text(encoding="utf-8") if gp else ""
+    for g in gp:
+        buren = ", ".join(
+            f'<a href="eendraadschema-{slugs[b]}.html">{esc(b)}</a>' if b in slugs else esc(b)
+            for b in g.get("buren", [])
+        )
+        raw = (tpl.replace("{{g_naam}}", esc(g["naam"])).replace("{{g_postcode}}", esc(g["postcode"]))
+                  .replace("{{g_intro}}", "".join(f"<p>{esc(t)}</p>" for t in g["intro"]))
+                  .replace("{{g_buren}}", buren))
+        bronnen.append((f'eendraadschema-{g["slug"]}.html', raw))
+
     sitemap = []
-    for f in sorted((SRC / "pages").glob("*.html")):
-        raw = f.read_text(encoding="utf-8")
+    for fname, raw in bronnen:
         m = re.match(r"\s*<!--\s*(\{.*?\})\s*-->\s*", raw, re.S)
         meta = json.loads(m.group(1))
         content = raw[m.end():]
@@ -293,7 +306,7 @@ def build():
             content = content.replace(k, v)
             mv_ = v.replace("€\u00a0", "€")  # in titels en beschrijvingen: "€265"
             meta = {mk: (mv.replace(k, mv_) if isinstance(mv, str) else mv) for mk, mv in meta.items()}
-        path = f.name if f.name != "404.html" else "404.html"
+        path = fname
         url = page_url(path)
 
         graph = [business(S), {"@type": "WebSite", "@id": BASE_URL + "#website", "url": BASE_URL, "name": S["naam"], "inLanguage": "nl-BE", "publisher": {"@id": BASE_URL + "#bedrijf"}}]
@@ -311,7 +324,7 @@ def build():
                 "name": meta["service"],
                 "serviceType": meta["service"],
                 "provider": {"@id": BASE_URL + "#bedrijf"},
-                "areaServed": [{"@type": "City", "name": g} for g in S["gemeenten"]],
+                "areaServed": [{"@type": "City", "name": g} for g in ([meta["plaats"]] if meta.get("plaats") else S["gemeenten"])],
                 "url": url,
                 "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR", "lowPrice": str(minprijs),
                            "highPrice": str(max(p["prijs"] for p in S["pakketten"])), "offerCount": str(len(S["pakketten"]))},
@@ -355,7 +368,7 @@ def build():
             out = out.replace('href="./#', 'href="#')  # op de homepage zelf: blijf op dezelfde pagina
         left = re.findall(r"\{\{[^}]+\}\}", out)
         if left:
-            raise SystemExit(f"{f.name}: onvervangen tokens {left}")
+            raise SystemExit(f"{fname}: onvervangen tokens {left}")
         (ROOT / path).write_text(out, encoding="utf-8")
         print("gebouwd:", path)
         if meta.get("sitemap", True):
