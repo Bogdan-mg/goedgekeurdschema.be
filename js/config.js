@@ -25,8 +25,8 @@ window.SITE = {
 
   // Wettelijk verplicht op een Belgische bedrijfswebsite:
   // officiële naam, adres en ondernemingsnummer (KBO / btw).
-  bedrijfsnaam: "",            // bv. "Jan Peeters" of "Goedgekeurd Schema BV"
-  ondernemingsnummer: "",      // bv. "BE 0123.456.789"
+  bedrijfsnaam: "Voltra",      // officiële naam; "Goedgekeurd Schema" is de handelsnaam
+  ondernemingsnummer: "BE 1042.544.914",
   adres: { straat: "", postcode: "", gemeente: "" },
 
   // Levertijd en werkgebied

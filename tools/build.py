@@ -352,7 +352,7 @@ def build():
     if S.get("googleReview"):
         contact.append(f'<a href="{esc(S["googleReview"])}" target="_blank" rel="noopener">Laat een review achter op Google</a>')
     contact.append(f'Werkgebied: {esc(S["werkgebied"])}')
-    legal = [esc(S.get("bedrijfsnaam") or S["naam"])]
+    legal = [esc(S["naam"]) + (f' is een handelsnaam van {esc(S["bedrijfsnaam"])}' if S.get("bedrijfsnaam") and S["bedrijfsnaam"] != S["naam"] else "")]
     a = S.get("adres") or {}
     if a.get("straat"):
         legal.append(esc(f'{a["straat"]}, {a.get("postcode", "")} {a.get("gemeente", "")}'.strip()))
