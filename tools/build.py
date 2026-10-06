@@ -167,6 +167,18 @@ def render_promo_balk(S):
             f'<a href="./#prijzen">Bekijk de prijzen</a></p></div>')
 
 
+def voorbeeld_fig(naam, titel, alt, hoogte=1131):
+    b = f"img/werk/voorbeeld-{naam}"
+    return (f'<figure class="vb"><a href="{b}-2339.webp" target="_blank" rel="noopener" aria-label="{esc(titel)} groot bekijken">'
+            f'<img src="{b}-1600.webp" srcset="{b}-900.webp 900w, {b}-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 560px" '
+            f'alt="{esc(alt)}" width="1600" height="{hoogte}" loading="lazy" decoding="async"></a>'
+            f'<figcaption>{esc(titel)} <span>Klik om te vergroten</span></figcaption></figure>')
+
+
+VB_EENDRAAD = ("eendraadschema", "Eendraadschema", "Voorbeeld van een eendraadschema met differentieelschakelaars, automaten, kabeltypes en gelabelde kringen", 660)
+VB_SITUATIE = ("situatieschema", "Situatieschema", "Voorbeeld van een situatieschema: plattegrond met alle stopcontacten, lichtpunten en toestellen per kring")
+
+
 def render_cards(S):
     out = []
     for p in S["pakketten"]:
@@ -386,6 +398,8 @@ def build():
         "{{fotos}}": render_fotos(S),
         "{{advies_aside}}": render_advies_aside(),
         "{{promo_balk}}": render_promo_balk(S),
+        "{{vb_eendraad}}": voorbeeld_fig(*VB_EENDRAAD),
+        "{{vb_situatie}}": voorbeeld_fig(*VB_SITUATIE),
         "{{levertijd}}": str(S["levertijdWerkdagen"]),
         "{{werkgebied}}": esc(S["werkgebied"]),
         "{{gemeenten}}": render_werkgebied(S),

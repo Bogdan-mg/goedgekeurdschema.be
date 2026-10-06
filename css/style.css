@@ -536,3 +536,15 @@ legend { font-weight: 700; font-size: .95rem; margin-bottom: 8px; }
 @media (max-width: 860px) {
   .cookie { left: 12px; right: 12px; bottom: calc(80px + env(safe-area-inset-bottom)); max-width: none; }
 }
+
+/* Voorbeeldschema's */
+.vb-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.vb-een { grid-template-columns: minmax(0, 1fr); max-width: 980px; }
+.vb { margin: 0; }
+.vb a { display: block; border-radius: var(--r-card); overflow: hidden; border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow-s); transition: box-shadow .2s, transform .2s; }
+.vb a:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.vb img { display: block; width: 100%; height: auto; aspect-ratio: 1600 / 1131; object-fit: contain; background: #fff; }
+.vb figcaption { margin-top: 10px; font-weight: 700; color: var(--ink); }
+.vb figcaption span { font-weight: 500; color: var(--muted); font-size: .88rem; margin-left: 6px; }
+@media (max-width: 860px) { .vb-grid { grid-template-columns: minmax(0, 1fr); } }
+.vb-een .vb img { aspect-ratio: auto; }
