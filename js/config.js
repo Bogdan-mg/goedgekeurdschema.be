@@ -30,7 +30,7 @@ window.SITE = {
   adres: { straat: "", postcode: "", gemeente: "" },
 
   // Levertijd en werkgebied
-  levertijdWerkdagen: 10,
+  levertijdWerkdagen: 5,
   werkgebied: "Antwerpen en omgeving",
   // Gemeenten die op de site vermeld worden (ook voor Google).
   // Let op: tools/gemeenten.json heeft voorrang. Daar staan alle gemeenten binnen 30 km van Berchem,
