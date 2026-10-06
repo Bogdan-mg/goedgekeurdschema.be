@@ -14,7 +14,7 @@ window.SITE = {
 
   // Zichtbaar telefoonnummer en e-mail (mag leeg blijven: "")
   telefoon: "0489 41 35 89",
-  email: "info@goedgekeurdschema.be",
+  email: "info@voltragroup.be",
 
   // Afspraken via e-mail (verstuurd via FormSubmit.co, gratis, zonder account).
   // De eerste aanvraag stuurt een activatiemail naar boekingEmail: klik op "Activate Form".
