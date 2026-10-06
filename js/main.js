@@ -5,6 +5,22 @@
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
 
+  // Tijdelijke actie: geldig tot en met de datum in config.js
+  var vandaag = new Date();
+  var iso = vandaag.getFullYear() + "-" + ("0" + (vandaag.getMonth() + 1)).slice(-2) + "-" + ("0" + vandaag.getDate()).slice(-2);
+  var promo = S.promo && iso <= S.promo.tot ? S.promo : null;
+  var prijs = function (p) { return promo ? p.prijs - promo.korting : p.prijs; };
+
+  // Actie voorbij maar de pagina nog niet opnieuw opgebouwd: toon de gewone prijzen
+  if (!promo) {
+    $$(".promo-balk").forEach(function (el) { el.remove(); });
+    $$(".price[data-oud]").forEach(function (el) {
+      var o = el.querySelector(".oud"); if (o) o.remove();
+      el.querySelector("b").innerHTML = "<sup>€</sup>" + el.dataset.oud;
+      el.querySelector("small").textContent = "Inclusief btw en verplaatsing";
+    });
+  }
+
   function waLink(text) {
     return "https://wa.me/" + S.whatsapp + "?text=" + encodeURIComponent(text);
   }
@@ -38,7 +54,8 @@
     var syncQuote = function () {
       var r = $('input[name="qtype"]:checked', quote);
       if (!r) return;
-      $("#quotePrice").textContent = euro(+r.dataset.prijs);
+      var pk = S.pakketten.filter(function (p) { return p.id === r.value; })[0];
+      $("#quotePrice").textContent = euro(pk ? prijs(pk) : +r.dataset.prijs);
       $("#quoteCta").dataset.pick = r.value;
     };
     quote.addEventListener("change", syncQuote);
@@ -50,7 +67,7 @@
   var form = $("#bookForm");
   if (form) {
     var keuzes = S.pakketten.map(function (p) {
-      return { id: p.id, naam: p.naam, sub: "tot " + p.m2 + " m² · tot " + p.zekeringen + " zekeringen", prijs: p.prijs };
+      return { id: p.id, naam: p.naam, sub: "tot " + p.m2 + " m² · tot " + p.zekeringen + " zekeringen", prijs: prijs(p) };
     }).concat([
       { id: "groter", naam: "Groter / anders", sub: "prijs op maat" },
       { id: "twijfel", naam: "Ik twijfel", sub: "ik stuur een foto van mijn verdeelkast" },
@@ -102,7 +119,7 @@
 
       var extras = fd.getAll("extra").join(", ");
       var type = st.keuze ? st.keuze.naam + " (" + st.keuze.sub + ")" : "-";
-      var prijs = st.total === null ? "op maat" : euro(st.total) + " (incl. btw)";
+      var prijsTekst = st.total === null ? "op maat" : euro(st.total) + " (incl. btw" + (promo ? ", " + promo.naam.toLowerCase() : "") + ")";
 
       if (via === "wa") {
         var lines = [
@@ -117,7 +134,7 @@
         if (extras) lines.push("➕ Extra (meerprijs): " + extras);
         lines.push("🎯 Waarvoor: " + fd.get("reden"), "🗓️ Voorkeur: " + fd.get("moment"));
         if (opm) lines.push("💬 Opmerking: " + opm);
-        lines.push("", st.total === null ? "Graag een prijs op maat." : "💶 Prijs volgens de website: " + prijs);
+        lines.push("", st.total === null ? "Graag een prijs op maat." : "💶 Prijs volgens de website: " + prijsTekst);
         window.open(waLink(lines.join("\n")), "_blank", "noopener");
         return;
       }
@@ -129,7 +146,7 @@
         "email": mail,
         "Telefoon": tel || "-",
         "Type woning": type,
-        "Prijs volgens website": prijs,
+        "Prijs volgens website": prijsTekst,
         "Extra (meerprijs)": extras || "-",
         "Waarvoor": fd.get("reden"),
         "Voorkeur moment": fd.get("moment"),
@@ -138,7 +155,7 @@
         _replyto: mail,
         _template: "table",
         _honey: v("_honey"),
-        _autoresponse: "Bedankt voor je aanvraag bij " + S.naam + "! We hebben ze goed ontvangen en nemen zo snel mogelijk contact met je op om een moment af te spreken. Je vaste prijs: " + prijs + ".",
+        _autoresponse: "Bedankt voor je aanvraag bij " + S.naam + "! We hebben ze goed ontvangen en nemen zo snel mogelijk contact met je op om een moment af te spreken. Je vaste prijs: " + prijsTekst + ".",
       };
       if (S.boekingCc) data._cc = S.boekingCc;
 

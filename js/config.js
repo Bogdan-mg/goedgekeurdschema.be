@@ -49,6 +49,10 @@ window.SITE = {
     { id: "w450",  naam: "Woning tot 450 m²", m2: 450, zekeringen: 40, prijs: 680 },
   ],
 
+  // Tijdelijke actie: korting in euro op elk pakket. Verdwijnt vanzelf na de datum "tot".
+  // Zet promo op null om de actie te stoppen.
+  promo: { naam: "Najaarsactie", korting: 50, tot: "2026-11-30" },
+
   // Wat zit er in elk pakket?
   inbegrepen: [
     "Bezoek en opmeting ter plaatse",

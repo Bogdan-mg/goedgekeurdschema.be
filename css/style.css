@@ -148,6 +148,13 @@ p { text-wrap: pretty; }
 .crumbs { display: flex; gap: 8px; align-items: center; font-size: .88rem; color: var(--muted); padding-top: 18px; flex-wrap: wrap; }
 .crumbs a { color: var(--muted); }
 
+/* Tijdelijke actie */
+.promo-balk { background: var(--navy); color: #fff; font-size: .92rem; }
+.promo-balk p { margin: 0; padding: 10px 20px; text-align: center; line-height: 1.5; }
+.promo-balk b { color: #6ee0b0; }
+.promo-balk a { color: #fff; font-weight: 700; white-space: nowrap; }
+.price .oud { display: block; color: var(--muted); font-size: 1.05rem; font-weight: 600; text-decoration-thickness: 2px; }
+
 /* Hero */
 .hero { padding: 56px 0 64px; }
 .hero-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: center; }

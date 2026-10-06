@@ -138,6 +138,35 @@ def render_advies_aside():
             f'<nav class="side-links" aria-label="Meer advies"><b>Meer advies</b>{links}<a href="advies.html">Alle artikels</a></nav></aside>')
 
 
+PROMO = None
+
+
+def promo_actief(S):
+    pr = S.get("promo")
+    return pr if pr and datetime.date.today().isoformat() <= pr["tot"] else None
+
+
+def prijs(p):
+    return p["prijs"] - PROMO["korting"] if PROMO else p["prijs"]
+
+
+def datum_nl(iso):
+    maanden = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"]
+    d = datetime.date.fromisoformat(iso)
+    return f"{d.day} {maanden[d.month - 1]} {d.year}"
+
+
+def render_promo_balk(S):
+    if not PROMO:
+        return ""
+    oud = euro(min(p["prijs"] for p in S["pakketten"]))
+    nieuw = euro(min(prijs(p) for p in S["pakketten"]))
+    return (f'<div class="promo-balk" data-tot="{PROMO["tot"]}"><p class="wrap"><b>{esc(PROMO["naam"])}:</b> '
+            f'€{PROMO["korting"]} korting op elk pakket, nu vanaf {nieuw} (normaal {oud}). '
+            f'Voor aanvragen t/m {datum_nl(PROMO["tot"])}. '
+            f'<a href="./#prijzen">Bekijk de prijzen</a></p></div>')
+
+
 def render_cards(S):
     out = []
     for p in S["pakketten"]:
@@ -147,7 +176,10 @@ def render_cards(S):
             f'<span class="card-ico" aria-hidden="true"><svg class="ico"><use href="#i-home"/></svg></span>'
             f'<h3>{esc(p["naam"])}</h3>'
             f'<p class="card-sub">Tot <b>{p["m2"]} m²</b><br>Tot <b>{p["zekeringen"]} zekeringen</b></p>'
-            f'<div class="price"><b><sup>€</sup>{p["prijs"]:,}</b><small>Inclusief btw en verplaatsing</small></div>'.replace(",", ".")
+            + (f'<div class="price" data-oud="{p["prijs"]}"><s class="oud" aria-label="Normale prijs">€ {p["prijs"]}</s><b><sup>€</sup>{prijs(p)}</b>'
+               f'<small>Actieprijs tot en met {datum_nl(PROMO["tot"])}, incl. btw en verplaatsing</small></div>'
+               if PROMO else
+               f'<div class="price"><b><sup>€</sup>{p["prijs"]}</b><small>Inclusief btw en verplaatsing</small></div>')
             + f'<details class="incl"><summary>Wat zit er allemaal in?</summary>'
             f'<ul class="checks">{incl}</ul></details>'
             f'<a class="btn btn-teal btn-block" href="./#boeken" data-pick="{p["id"]}">Afspraak maken<svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>'
@@ -158,7 +190,7 @@ def render_cards(S):
 
 def keuzes(S):
     k = [
-        {"id": p["id"], "naam": p["naam"], "sub": f'tot {p["m2"]} m² · tot {p["zekeringen"]} zekeringen', "prijs": p["prijs"]}
+        {"id": p["id"], "naam": p["naam"], "sub": f'tot {p["m2"]} m² · tot {p["zekeringen"]} zekeringen', "prijs": prijs(p)}
         for p in S["pakketten"]
     ]
     k.append({"id": "groter", "naam": "Groter / anders", "sub": "prijs op maat"})
@@ -181,7 +213,7 @@ def render_hero_choices(S):
     out = []
     for i, p in enumerate(S["pakketten"]):
         out.append(
-            f'<label class="qopt"><input type="radio" name="qtype" value="{p["id"]}" data-prijs="{p["prijs"]}"{" checked" if i == 0 else ""}>'
+            f'<label class="qopt"><input type="radio" name="qtype" value="{p["id"]}" data-prijs="{prijs(p)}"{" checked" if i == 0 else ""}>'
             f'<span><b>{esc(p["naam"])}</b><small>tot {p["m2"]}\u00a0m², tot {p["zekeringen"]} zekeringen</small></span></label>'
         )
     return "".join(out)
@@ -271,7 +303,7 @@ def business(S):
         "description": "Eendraadschema's en situatieschema's volgens het AREI, aan een vaste prijs. Verplaatsing in " + S["werkgebied"] + " inbegrepen.",
         "areaServed": [{"@type": "City", "name": g} for g in S["gemeenten"]],
         "knowsLanguage": "nl-BE",
-        "priceRange": euro(min(p["prijs"] for p in S["pakketten"])) + " - " + euro(max(p["prijs"] for p in S["pakketten"])),
+        "priceRange": euro(min(prijs(p) for p in S["pakketten"])) + " - " + euro(max(prijs(p) for p in S["pakketten"])),
         "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Eendraadschema + situatieschema",
@@ -279,9 +311,10 @@ def business(S):
                 {
                     "@type": "Offer",
                     "name": f'Eendraad- en situatieschema: {p["naam"]} (tot {p["m2"]} m², tot {p["zekeringen"]} zekeringen)',
-                    "price": str(p["prijs"]),
+                    "price": str(prijs(p)),
+                    **({"priceValidUntil": PROMO["tot"]} if PROMO else {}),
                     "priceCurrency": "EUR",
-                    "priceSpecification": {"@type": "PriceSpecification", "price": str(p["prijs"]), "priceCurrency": "EUR", "valueAddedTaxIncluded": True},
+                    "priceSpecification": {"@type": "PriceSpecification", "price": str(prijs(p)), "priceCurrency": "EUR", "valueAddedTaxIncluded": True},
                     "itemOffered": {"@type": "Service", "name": "Eendraadschema en situatieschema opmaken"},
                 }
                 for p in S["pakketten"]
@@ -333,14 +366,15 @@ NAV = [
 
 
 def build():
-    global GEMEENTEN
+    global GEMEENTEN, PROMO
     S = load_config()
+    PROMO = promo_actief(S)
     GEMEENTEN = load_gemeenten()
     if GEMEENTEN:
         S["gemeenten"] = [g["naam"] for g in GEMEENTEN]
     layout = (SRC / "layout.html").read_text(encoding="utf-8")
     today = datetime.date.today().isoformat()
-    minprijs = min(p["prijs"] for p in S["pakketten"])
+    minprijs = min(prijs(p) for p in S["pakketten"])
     tokens = {
         "{{cards}}": render_cards(S),
         "{{keuzes}}": render_choices(S),
@@ -351,6 +385,7 @@ def build():
         "{{over}}": render_over(S),
         "{{fotos}}": render_fotos(S),
         "{{advies_aside}}": render_advies_aside(),
+        "{{promo_balk}}": render_promo_balk(S),
         "{{levertijd}}": str(S["levertijdWerkdagen"]),
         "{{werkgebied}}": esc(S["werkgebied"]),
         "{{gemeenten}}": render_werkgebied(S),
@@ -359,7 +394,7 @@ def build():
         "{{email_link}}": f'<a href="mailto:{esc(S["email"])}">{esc(S["email"])}</a>' if S.get("email") else "e-mail",
     }
     for p in S["pakketten"]:
-        tokens["{{prijs:" + p["id"] + "}}"] = euro(p["prijs"])
+        tokens["{{prijs:" + p["id"] + "}}"] = euro(prijs(p))
 
     contact = [f'<a data-wa="Hallo!" href="https://wa.me/{S["whatsapp"]}">WhatsApp</a>']
     if S.get("telefoon"):
@@ -428,7 +463,7 @@ def build():
                 "areaServed": [{"@type": "City", "name": g} for g in ([meta["plaats"]] if meta.get("plaats") else S["gemeenten"])],
                 "url": url,
                 "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR", "lowPrice": str(minprijs),
-                           "highPrice": str(max(p["prijs"] for p in S["pakketten"])), "offerCount": str(len(S["pakketten"]))},
+                           "highPrice": str(max(prijs(p) for p in S["pakketten"])), "offerCount": str(len(S["pakketten"]))},
             })
         fs = faq_schema(content)
         if fs:
