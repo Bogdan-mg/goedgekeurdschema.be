@@ -21,6 +21,50 @@
     });
   }
 
+  // Cookies: de Google-tag laden we pas na toestemming
+  var meet = function () {};
+  (function () {
+    if (!S.googleTag) return;
+    var banner = $("#cookie");
+    var lees = function () { try { return localStorage.getItem("cookies"); } catch (e) { return null; } };
+    var bewaar = function (v) { try { localStorage.setItem("cookies", v); } catch (e) {} };
+    var laad = function () {
+      if (window.gtag) return;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date());
+      window.gtag("config", S.googleTag);
+      var sc = document.createElement("script");
+      sc.async = true;
+      sc.src = "https://www.googletagmanager.com/gtag/js?id=" + S.googleTag;
+      document.head.appendChild(sc);
+      meet = function (naam, extra) { window.gtag("event", naam, extra || {}); };
+    };
+    if (lees() === "ja") laad();
+    else if (lees() !== "nee" && banner) banner.hidden = false;
+    document.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-cookie]");
+      if (b) {
+        bewaar(b.dataset.cookie);
+        banner.hidden = true;
+        if (b.dataset.cookie === "ja") laad();
+        else if (window.gtag) location.reload();
+        return;
+      }
+      if (e.target.closest("[data-cookie-keuze]")) { e.preventDefault(); if (banner) banner.hidden = false; }
+    });
+  })();
+
+  // Contactklikken meten (enkel als cookies aanvaard zijn)
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a");
+    if (!a) return;
+    var h = a.getAttribute("href") || "";
+    if (a.hasAttribute("data-wa") || h.indexOf("wa.me") > -1) meet("whatsapp_klik");
+    else if (h.indexOf("tel:") === 0) meet("telefoon_klik");
+    else if (h.indexOf("mailto:") === 0) meet("email_klik");
+  });
+
   function waLink(text) {
     return "https://wa.me/" + S.whatsapp + "?text=" + encodeURIComponent(text);
   }
@@ -135,6 +179,7 @@
         lines.push("🎯 Waarvoor: " + fd.get("reden"), "🗓️ Voorkeur: " + fd.get("moment"));
         if (opm) lines.push("💬 Opmerking: " + opm);
         lines.push("", st.total === null ? "Graag een prijs op maat." : "💶 Prijs volgens de website: " + prijsTekst);
+        meet("generate_lead", { method: "whatsapp" });
         window.open(waLink(lines.join("\n")), "_blank", "noopener");
         return;
       }
@@ -179,6 +224,7 @@
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (res) {
           if (!res.ok || String(res.j.success) !== "true") throw new Error(res.j.message || "Versturen mislukt");
+          meet("generate_lead", { method: "e-mail" });
           form.hidden = true;
           var ok = $("#bookOk");
           ok.hidden = false;

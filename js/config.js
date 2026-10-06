@@ -71,6 +71,9 @@ window.SITE = {
       uitleg: "Bv. een verkeerd kaliber, verouderde smeltzekeringen of een extra kring.", prijs: null },
   ],
 
+  // Google-tag (Google Ads / Analytics). Wordt pas geladen nadat de bezoeker cookies aanvaardt.
+  googleTag: "G-S9TCP59Y1B",
+
   // Link van je Google Bedrijfsprofiel om een review te vragen ("Vragen om reviews").
   // Ook bereikbaar via de korte link www.goedgekeurdschema.be/review (zie vercel.json).
   googleReview: "https://g.page/r/CXQrOEXrI0F9EBM/review",
