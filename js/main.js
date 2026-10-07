@@ -56,6 +56,9 @@
     else if (h.indexOf("mailto:") === 0) meet("email_klik");
   });
 
+  // Bedankpagina: extra uitleg bij WhatsApp
+  if (/via=whatsapp/.test(location.search)) $$("[data-via-wa]").forEach(function (el) { el.hidden = false; });
+
   function waLink(text) {
     return "https://wa.me/" + S.whatsapp + "?text=" + encodeURIComponent(text);
   }
@@ -172,6 +175,7 @@
         lines.push("", st.total === null ? "Graag een prijs op maat." : "💶 Prijs volgens de website: " + prijsTekst);
         meet("generate_lead", { method: "whatsapp" });
         window.open(waLink(lines.join("\n")), "_blank", "noopener");
+        setTimeout(function () { location.href = "bedankt.html?via=whatsapp"; }, 400);
         return;
       }
 
@@ -217,10 +221,7 @@
           if (!res.ok || String(res.j.success) !== "true") throw new Error(res.j.message || "Versturen mislukt");
           meet("generate_lead", { method: "e-mail" });
           form.hidden = true;
-          var ok = $("#bookOk");
-          ok.hidden = false;
-          ok.focus();
-          ok.scrollIntoView({ behavior: "smooth", block: "center" });
+          setTimeout(function () { location.href = "bedankt.html?via=email"; }, 300);
         })
         .catch(function () {
           btn.disabled = false;
