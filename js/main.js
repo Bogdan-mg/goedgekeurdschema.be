@@ -21,34 +21,25 @@
     });
   }
 
-  // Cookies: de Google-tag laden we pas na toestemming
-  var meet = function () {};
+  // Cookies: de Google-tag staat in de pagina (Consent Mode), maar plaatst pas cookies na toestemming
+  var meet = function (naam, extra) { if (window.gtag) window.gtag("event", naam, extra || {}); };
   (function () {
     if (!S.googleTag) return;
     var banner = $("#cookie");
     var lees = function () { try { return localStorage.getItem("cookies"); } catch (e) { return null; } };
     var bewaar = function (v) { try { localStorage.setItem("cookies", v); } catch (e) {} };
-    var laad = function () {
-      if (window.gtag) return;
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      window.gtag("js", new Date());
-      window.gtag("config", S.googleTag);
-      var sc = document.createElement("script");
-      sc.async = true;
-      sc.src = "https://www.googletagmanager.com/gtag/js?id=" + S.googleTag;
-      document.head.appendChild(sc);
-      meet = function (naam, extra) { window.gtag("event", naam, extra || {}); };
+    var zet = function (ja) {
+      var c = ja ? "granted" : "denied";
+      if (window.gtag) window.gtag("consent", "update", { ad_storage: c, ad_user_data: c, ad_personalization: c, analytics_storage: c });
     };
-    if (lees() === "ja") laad();
-    else if (lees() !== "nee" && banner) banner.hidden = false;
+    var k = lees();
+    if (k !== "ja" && k !== "nee" && banner) banner.hidden = false;
     document.addEventListener("click", function (e) {
       var b = e.target.closest("[data-cookie]");
       if (b) {
         bewaar(b.dataset.cookie);
         banner.hidden = true;
-        if (b.dataset.cookie === "ja") laad();
-        else if (window.gtag) location.reload();
+        zet(b.dataset.cookie === "ja");
         return;
       }
       if (e.target.closest("[data-cookie-keuze]")) { e.preventDefault(); if (banner) banner.hidden = false; }

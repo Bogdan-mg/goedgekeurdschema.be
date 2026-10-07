@@ -179,6 +179,18 @@ VB_EENDRAAD = ("eendraadschema", "Eendraadschema", "Voorbeeld van een eendraadsc
 VB_SITUATIE = ("situatieschema", "Situatieschema", "Voorbeeld van een situatieschema: plattegrond met alle stopcontacten, lichtpunten en toestellen per kring")
 
 
+def render_google_tag(S):
+    """Google-tag met Consent Mode: altijd in de HTML, maar zonder cookies tot de bezoeker aanvaardt."""
+    t = S.get("googleTag")
+    if not t:
+        return ""
+    return ('<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}'
+            'var k=null;try{k=localStorage.getItem("cookies")}catch(e){}var c=k==="ja"?"granted":"denied";'
+            'gtag("consent","default",{ad_storage:c,ad_user_data:c,ad_personalization:c,analytics_storage:c,wait_for_update:500});'
+            f'gtag("js",new Date());gtag("config","{t}");</script>\n'
+            f'  <script async src="https://www.googletagmanager.com/gtag/js?id={t}"></script>')
+
+
 def render_cards(S):
     out = []
     for p in S["pakketten"]:
@@ -398,6 +410,7 @@ def build():
         "{{fotos}}": render_fotos(S),
         "{{advies_aside}}": render_advies_aside(),
         "{{promo_balk}}": render_promo_balk(S),
+        "{{google_tag}}": render_google_tag(S),
         "{{vb_eendraad}}": voorbeeld_fig(*VB_EENDRAAD),
         "{{vb_situatie}}": voorbeeld_fig(*VB_SITUATIE),
         "{{levertijd}}": str(S["levertijdWerkdagen"]),
